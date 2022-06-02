@@ -71,3 +71,39 @@ UPDATE clients SET age="16" WHERE id=4;
 -- filtrer/trouver des clients specifiques
 SELECT * FROM clients where age>15;
 SELECT * FROM clients where age>15 AND nom="Mollion";
+
+-- autres: or
+
+
+--- l'exercice
+
+CREATE DATABASE sales;
+
+USE sales;
+
+CREATE TABLE telephones(
+ id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(50) NOT NULL,
+ manufacturer VARCHAR(50) NOT NULL,
+ price FLOAT,
+ unit_solds INTEGER
+);
+
+
+INSERT INTO telephones(name, manufacturer, price, unit_solds) 
+    values("N1280","Nokia",199,1925),
+    ("iphone4","Apple",399,9436),
+    ("GalaxyS6","Samsung",299,2359),
+    ("S5620Monte","Samsung",250,2385),
+    ("N8","Nokia",150,7543),
+    ("Droid","Motorola",150,8395),
+    ("Iphone13ProMax","Apple",1300,12849),
+    ("GalaxyNote20","Samsung",1100,10353);
+
+-- requetes
+SELECT name, manufacturer FROM telephones WHERE price>200;
+--5: iphone4,galaxys6,s5620Monte,iphone13promax,galaxynote20
+SELECT name,manufacturer FROM telephones where price>150 and price<200;
+-- 1: N1280 de Nokia
+SELECT name,manufacturer from telephones where manufacturer="Samsung" or manufacturer="Nokia";
+-- 5: n1280,galaxys6,s5620Monte,n8,galaxynote20
