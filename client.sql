@@ -38,3 +38,9 @@ ALTER TABLE clients ADD COLUMN postnom VARCHAR(50); --AFTER prenom possible
 SELECT * FROM clients;
 
 INSERT INTO clients(nom, prenom, postnom, email, telephone) values("Mollion","Maeva","MM","monemail@email.com",0000000);
+INSERT INTO clients(nom, prenom, postnom, email, telephone) values("Mollion","éva","EM","monemaile@email.com",0000000);
+-- insertions multiples
+INSERT INTO clients(nom, prenom, postnom, email, telephone) 
+    values("Universe","Steven","SU","crystalgems@email.com","0000001"),
+    values("Butterfly","Star","SB","mewny@email.com","0000002");
+
