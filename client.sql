@@ -31,3 +31,10 @@ DESC clients; -- peut aussi etre DESCRIBE
 -- modifier la table en ajoutant une colonne
 ALTER TABLE clients ADD COLUMN postnom VARCHAR(50); --AFTER prenom possible
 -- ALTER TABLE clients MODIFY COLUMN email VARCHAR(70) NOT NULL;
+
+
+-- LMD requetes
+
+SELECT * FROM clients;
+
+INSERT INTO clients(nom, prenom, postnom, email, telephone) values("Mollion","Maeva","MM","monemail@email.com",0000000);
