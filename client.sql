@@ -9,4 +9,5 @@ SHOW DATABASES;
 -- 1 creation de la base de donnees
 
 CREATE DATABASE ventes;
+USE ventes;
 --2 creation de la table client
