@@ -68,3 +68,6 @@ UPDATE clients SET age="10" WHERE id=3;
 UPDATE clients SET age="16" WHERE id=4;
 
 
+-- filtrer/trouver des clients specifiques
+SELECT * FROM clients where age>15;
+SELECT * FROM clients where age>15 AND nom="Mollion";
