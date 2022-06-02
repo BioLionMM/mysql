@@ -55,3 +55,8 @@ INSERT INTO clients(nom,prenom,email,telephone,age) values("Roshi","Muten","kame
 
 --delete
 DELETE FROM clients where id=5;
+
+UPDATE clients SET age="28" WHERE id=1;
+UPDATE clients SET age="14" WHERE id=2;
+UPDATE clients SET age="10" WHERE id=3;
+UPDATE clients SET age="16" WHERE id=4;
