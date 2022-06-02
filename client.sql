@@ -3,6 +3,12 @@
 mysqm -u root -p motdepasse
 
 
+-- verifier le mode de mysql avec ses variables globales notamment sql_mode
+SHOW VARIABLES LIKE "sql_mode";
+-- modifier le mode en strict
+SET GLOBAL sql_mode="STRiCT_TRANS_TABLES";
+
+
 -- lister toutes les bases de donnees
 SHOW DATABASES;
 
@@ -60,3 +66,5 @@ UPDATE clients SET age="28" WHERE id=1;
 UPDATE clients SET age="14" WHERE id=2;
 UPDATE clients SET age="10" WHERE id=3;
 UPDATE clients SET age="16" WHERE id=4;
+
+
