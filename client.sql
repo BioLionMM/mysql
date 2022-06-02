@@ -49,3 +49,9 @@ ALTER TABLE clients ADD COLUMN age INTEGER(2);
 
 -- mise a jour des donnees
 UPDATE clients SET telephone="1234567" WHERE id=3;
+
+-- ajout
+INSERT INTO clients(nom,prenom,email,telephone,age) values("Roshi","Muten","kame@email.com","84848484",80);
+
+--delete
+DELETE FROM clients where id=5;
