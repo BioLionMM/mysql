@@ -9,6 +9,9 @@ SHOW DATABASES;
 -- 1 creation de la base de donnees
 
 CREATE DATABASE ventes;
+DEFAULT CHARACTER SET utf8;
+DEFAULT COLLATE utf_general_ci;
+
 USE ventes;
 
 SHOW TABLES;
@@ -21,3 +24,10 @@ CREATE TABLE clients(
  email VARCHAR(70),
  telephone VARCHAR(20) NOT NULL
 );
+
+-- voir la description de la table
+DESC clients; -- peut aussi etre DESCRIBE
+
+-- modifier la table en ajoutant une colonne
+ALTER TABLE clients ADD COLUMN postnom VARCHAR(50); --AFTER prenom possible
+-- ALTER TABLE clients MODIFY COLUMN email VARCHAR(70) NOT NULL;
