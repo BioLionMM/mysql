@@ -42,5 +42,10 @@ INSERT INTO clients(nom, prenom, postnom, email, telephone) values("Mollion","é
 -- insertions multiples
 INSERT INTO clients(nom, prenom, postnom, email, telephone) 
     values("Universe","Steven","SU","crystalgems@email.com","0000001"),
-    values("Butterfly","Star","SB","mewny@email.com","0000002");
+    ("Butterfly","Star","SB","mewny@email.com","0000002");
 
+-- rajout d'une colonne age (2 chiffres maximum)
+ALTER TABLE clients ADD COLUMN age INTEGER(2);
+
+-- mise a jour des donnees
+UPDATE clients SET telephone="1234567" WHERE id=3;
