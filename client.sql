@@ -203,15 +203,16 @@ CREATE TABLE orders(
 );
 
 
+    
 INSERT INTO orders(typePresta,designation,clientId,nbDays,price,state) 
     values("Formation","Angular init",2,3,1200,0),
     ("Formation","React avance",2,3,1000,2),
     ("Coaching","React Techlead",1,20,900,2),
     ("Coaching","Nest.js Techlead",1,50,800,1),
-    ("Coaching","React Techlead",3,9,9,9),
-    ("Coaching","Jakarta EE",3,9,9,9),
-    ("Coaching","Angular Techlead",4,9,9,9);
-    
+    ("Coaching","React Techlead",3,null,null,null),
+    ("Coaching","Jakarta EE",3,null,null,null),
+    ("Coaching","Angular Techlead",4,null,null,null);
+
 SELECT * from orders;
 
 -- completer la table
@@ -246,7 +247,9 @@ SELECT CONCAT(clients.firstName," ",clients.lastName," ",clients.email," ",clien
     AND designation="React Techlead";
 
 -- pour chaque demande de formation, afficher prix UHT et TTC
-SELECT total_TaxesExcluded,totalWithTaxes,DISTINCT(designation) FROM  vue_taxes;
+SELECT id,totalTaxesExcluded,totalWithTaxes FROM  vue_taxes;
 
 
--- lister toutes les presta >30000 euros et confirmees
+-- lister toutes les presta >30000 euros et confirmees (state=2)
+SELECT * FROM vue_taxes WHERE totalWithTaxes>=30000 AND state=2;
+-- aucun.
