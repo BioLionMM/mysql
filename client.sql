@@ -105,5 +105,12 @@ SELECT name, manufacturer FROM telephones WHERE price>200;
 --5: iphone4,galaxys6,s5620Monte,iphone13promax,galaxynote20
 SELECT name,manufacturer FROM telephones where price>150 and price<200;
 -- 1: N1280 de Nokia
-SELECT name,manufacturer from telephones where manufacturer="Samsung" or manufacturer="Nokia";
--- 5: n1280,galaxys6,s5620Monte,n8,galaxynote20
+SELECT name,manufacturer from telephones where manufacturer="Samsung" or manufacturer="Apple";
+-- 5: iphone4,galaxys6,s5620Monte,iphone13promax,galaxynote20
+-- autre
+SELECT name,manufacturer from telephones where manufacturer IN("Apple","Samsung");
+SELECT name,manufacturer FROM telephones where price BETWEEN 150 and 200;
+
+-- order by price ascending (default) or descending
+SELECT id,name,manufacturer FROM telephones ORDER BY price ASC;
+SELECT id,name,manufacturer FROM telephones ORDER BY price DESC manufacturer DESC;
