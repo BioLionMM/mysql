@@ -147,7 +147,7 @@ CREATE VIEW nom_vue AS SELECT name AS modele,manufacturer AS constructeur ,price
  FOREIGN KEY(id_client) REFERENCES clients(id) ON DELETE CASCADE
 );
 -- on delete cascade: si client supprime, tous les no tel associes sont supprimes
--- on delete null: champs mis à nul si client supprime mais numero garde (par defaut)
+-- on delete set null: champs mis à nul si client supprime mais numero garde (par defaut)
 -- on delete restrict (pas possible de del si associe a un id client)
 
 ALTER TABLE clients DROP COLUMN telephones;
@@ -199,7 +199,7 @@ CREATE TABLE orders(
  nbDays INTEGER,
  price FLOAT,
  state INTEGER,
- FOREIGN KEY(clientId) REFERENCES clients(id) ON DELETE CASCADE
+ FOREIGN KEY(clientId) REFERENCES clients(id) ON DELETE RESTRICT
 );
 
 
@@ -236,7 +236,7 @@ SELECT * FROM orders
 
 -- afficher noms et contacts de tous les clients
 --  ayant sollicite un coaching (state=1 ou 2 sur table order)
-SELECT CONCAT(clients.firstName," ",clients.lastName," ",clients.email," ",clients.phone) FROM  clients 
+SELECT DISTINCT CONCAT(clients.firstName," ",clients.lastName," ",clients.email," ",clients.phone) FROM  clients 
     JOIN orders ON orders.clientId=clients.id WHERE orders.state IN ("1","2");
 
 -- afficher noms et contacts de tous les clients
@@ -246,10 +246,67 @@ SELECT CONCAT(clients.firstName," ",clients.lastName," ",clients.email," ",clien
     AND orders.typePresta="Coaching"
     AND designation="React Techlead";
 
+
 -- pour chaque demande de formation, afficher prix UHT et TTC
 SELECT id,totalTaxesExcluded,totalWithTaxes FROM  vue_taxes;
-
 
 -- lister toutes les presta >30000 euros et confirmees (state=2)
 SELECT * FROM vue_taxes WHERE totalWithTaxes>=30000 AND state=2;
 -- aucun.
+
+
+
+-- 07juin
+-- create table bla bla
+-- totaltaxes float generated always = variable toujours calculee
+-- procedures stockees: fonction s'executant a chaque fois
+-- generated always as nbdays*unit stored
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `clientId` int(11) NOT NULL,
+  `typePresta` varchar(100) NOT NULL,
+  `designation` varchar(100) NOT NULL,
+  `nbDays` int(11) NOT NULL,
+  `unitPrice` float NOT NULL,
+  `state` tinyint(1) NOT NULL,
+  `totalExcludeTaxe` float GENERATED ALWAYS AS (`nbDays` * `unitPrice`) STORED,
+  `totalWithTaxe` float GENERATED ALWAYS AS (`nbDays` * `unitPrice` * 1.2) STORED
+)
+
+-- egalite non exacte, chaine de caractere qui commence par m2, se termine, ou contient m2
+SELECT * FROM clients WHERE companyName LIKE "M2%";
+SELECT * FROM clients WHERE companyName LIKE "%M2";
+SELECT * FROM clients WHERE companyName LIKE "%M2%";
+-- _ pour single character
+
+
+-- GROUP BY, ORDER_BY
+-- Nombre de ventes pour tous les fabricant
+SELECT manufacturer,SUM(units_sold) FROM telephones GROUP BY manufacturer;
+
+-- CA par fabricant
+SELECT manufacturer,SUM(price*units_sold) as chiffre_affaire FROM telephones GROUP BY manufacturer;
+
+-- CA par fabricant dans l'ordre decroissant des CA
+SELECT manufacturer,SUM(price*units_sold) as chiffre_affaire FROM telephones GROUP BY manufacturer ORDER BY chiffre_affaire DESC;
+
+-- HAVING vs WHERE: calcul obtenu par aggregation via group by
+
+-- Nombre de ventes pour tous les fabricant
+-- SELECT manufacturer,SUM(units_sold) FROM telephones GROUP BY manufacturer;
+
+-- CA par fabricant
+-- SELECT manufacturer,SUM(price*units_sold) as chiffre_affaire FROM telephones GROUP BY manufacturer;
+
+-- CA par fabricant dans l'ordre decroissant des CA
+-- SELECT manufacturer,SUM(price*units_sold) as chiffre_affaire FROM telephones GROUP BY manufacturer ORDER BY chiffre_affaire DESC;
+
+-- Toutes les ventes des marques qui ont réalisé un CA de plus de 20000000
+SELECT manufacturer,SUM(price*units_sold) as chiffre_affaire FROM telephones GROUP BY manufacturer HAVING chiffre_affaire>20000000;
+
+-- Mauvaise approche
+-- SELECT manufacturer,SUM(price*units_sold) as chiffre_affaire FROM telephones  WHERE chiffre_affaire>20000000 GROUP BY manufacturer;
+
+-- Utiliser une query dans une condition
+SELECT name, price FROM telephones WHERE price<(SELECT AVG(price) FROM telephones) ORDER BY price DESC;
